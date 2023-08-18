@@ -1,1 +1,1 @@
-# ExchangeRatesApp
+# YetAnotherApp
