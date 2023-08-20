@@ -4,5 +4,4 @@
     <string name="tvLoadingErrorText">Ошибка загрузки данных</string>
     <string name="tvLoadingErrorRetry">Повторить</string>
     <string name="tvCurrencySelectorTitle">Базовая валюта</string>
-    <string name="tvCurrencySelectorDialogTitle">Выберите базовую валюту</string>
 </resources>

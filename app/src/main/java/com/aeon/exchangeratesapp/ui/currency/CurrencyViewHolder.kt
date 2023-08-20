@@ -1,4 +1,4 @@
-package com.aeon.exchangeratesapp.ui.viewholder
+package com.aeon.exchangeratesapp.ui.currency
 
 import android.view.View
 import android.widget.TextView

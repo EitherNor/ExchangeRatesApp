@@ -1,4 +1,4 @@
-package com.aeon.exchangeratesapp.ui.fragment
+package com.aeon.exchangeratesapp.ui.ratelist
 
 import android.os.Bundle
 import android.util.Log
@@ -13,9 +13,6 @@ import com.aeon.exchangeratesapp.App
 import com.aeon.exchangeratesapp.R
 import com.aeon.exchangeratesapp.databinding.FragmentExchangeRatesListBinding
 import com.aeon.exchangeratesapp.di.ViewModelFactory
-import com.aeon.exchangeratesapp.ui.adapter.ExchangeRateAdapter
-import com.aeon.exchangeratesapp.ui.state.ExchangeRatesUiState
-import com.aeon.exchangeratesapp.ui.viewmodel.ExchangeRatesListViewModel
 import com.aeon.exchangeratesapp.utils.DelegateUtils.lazyUnsafe
 import com.redmadrobot.extensions.viewbinding.viewBinding
 import kotlinx.coroutines.launch
@@ -70,8 +67,7 @@ class RatesListFragment : Fragment(R.layout.fragment_exchange_rates_list) {
                 ExchangeRatesUiState.Loading -> {
                     Log.d(TAG, "render: loading")
                     rvExchangeRatesList.isVisible = false
-                    tvErrorText.isVisible = false
-                    tvErrorRetry.isVisible = false
+                    gErrorGroup.isVisible = false
 
                     pbLoading.isVisible = true
                 }
@@ -79,8 +75,7 @@ class RatesListFragment : Fragment(R.layout.fragment_exchange_rates_list) {
                 is ExchangeRatesUiState.Success -> {
                     Log.d(TAG, "render: success, data size: ${uiState.data.size}")
                     pbLoading.isVisible = false
-                    tvErrorText.isVisible = false
-                    tvErrorRetry.isVisible = false
+                    gErrorGroup.isVisible = false
 
                     rvExchangeRatesList.isVisible = true
                     adapter.setData(uiState.data)
@@ -91,8 +86,8 @@ class RatesListFragment : Fragment(R.layout.fragment_exchange_rates_list) {
                     pbLoading.isVisible = false
                     rvExchangeRatesList.isVisible = false
 
-                    tvErrorText.isVisible = true
-                    tvErrorRetry.isVisible = true
+                    gErrorGroup.isVisible = true
+                    tvErrorDescription.text = uiState.throwable?.message
                 }
             }
         }

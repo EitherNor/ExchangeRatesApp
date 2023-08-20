@@ -2,9 +2,9 @@ package com.aeon.exchangeratesapp.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.aeon.exchangeratesapp.ui.viewmodel.ContainerViewModel
-import com.aeon.exchangeratesapp.ui.viewmodel.CurrencyViewModel
-import com.aeon.exchangeratesapp.ui.viewmodel.ExchangeRatesListViewModel
+import com.aeon.exchangeratesapp.ui.container.ContainerViewModel
+import com.aeon.exchangeratesapp.ui.currency.CurrencyViewModel
+import com.aeon.exchangeratesapp.ui.ratelist.ExchangeRatesListViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

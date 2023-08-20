@@ -1,11 +1,10 @@
-package com.aeon.exchangeratesapp.ui.adapter
+package com.aeon.exchangeratesapp.ui.ratelist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aeon.exchangeratesapp.R
 import com.aeon.exchangeratesapp.domain.ExchangeRateDto
-import com.aeon.exchangeratesapp.ui.viewholder.ExchangeRateViewHolder
 
 class ExchangeRateAdapter(private val data: MutableList<ExchangeRateDto>) :
     RecyclerView.Adapter<ExchangeRateViewHolder>() {

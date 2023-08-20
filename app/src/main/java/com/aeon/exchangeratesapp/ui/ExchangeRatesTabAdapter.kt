@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aeon.exchangeratesapp.R
-import com.aeon.exchangeratesapp.ui.fragment.RatesListFragment
+import com.aeon.exchangeratesapp.ui.ratelist.RatesListFragment
 
 class ExchangeRatesTabAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {

@@ -1,16 +1,14 @@
-package com.aeon.exchangeratesapp.ui.viewmodel
+package com.aeon.exchangeratesapp.ui.currency
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aeon.exchangeratesapp.domain.ICurrencyRepository
-import com.aeon.exchangeratesapp.ui.state.CurrencyUiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class CurrencyViewModel @Inject constructor(private val currencyRepository: ICurrencyRepository) :
@@ -25,10 +23,8 @@ class CurrencyViewModel @Inject constructor(private val currencyRepository: ICur
 
     fun onCurrencyCodeClicked(code: String) {
         Log.d("QWE", "Code clicked: $code")
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                currencyRepository.updateBaseCurrency(code)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            currencyRepository.updateBaseCurrency(code)
         }
     }
 
@@ -38,7 +34,7 @@ class CurrencyViewModel @Inject constructor(private val currencyRepository: ICur
                 .collect { currencyCodes ->
                     if (currencyCodes.isNotEmpty()) {
                         _currencyDataFlow.update {
-                            CurrencyUiState.Success(currencyCodes)
+                            CurrencyUiState.Success(currencyCodes.sortedBy { it })
                         }
                     }
                 }

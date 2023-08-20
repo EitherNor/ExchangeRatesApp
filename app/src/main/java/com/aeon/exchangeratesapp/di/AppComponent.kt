@@ -1,8 +1,8 @@
 package com.aeon.exchangeratesapp.di
 
-import com.aeon.exchangeratesapp.ui.fragment.ContainerFragment
-import com.aeon.exchangeratesapp.ui.fragment.CurrencySelectorDialogFragment
-import com.aeon.exchangeratesapp.ui.fragment.RatesListFragment
+import com.aeon.exchangeratesapp.ui.container.ContainerFragment
+import com.aeon.exchangeratesapp.ui.currency.CurrencySelectorDialogFragment
+import com.aeon.exchangeratesapp.ui.ratelist.RatesListFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -11,7 +11,8 @@ import javax.inject.Singleton
     modules = [
         ViewModelModule::class,
         DataModule::class,
-        ContextModule::class
+        ContextModule::class,
+        DomainModule::class,
     ]
 )
 interface AppComponent {

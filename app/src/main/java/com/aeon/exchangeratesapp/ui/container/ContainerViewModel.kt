@@ -1,4 +1,4 @@
-package com.aeon.exchangeratesapp.ui.viewmodel
+package com.aeon.exchangeratesapp.ui.container
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

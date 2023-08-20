@@ -1,8 +1,8 @@
-package com.aeon.exchangeratesapp.ui.fragment
+package com.aeon.exchangeratesapp.ui.currency
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -14,9 +14,6 @@ import com.aeon.exchangeratesapp.App
 import com.aeon.exchangeratesapp.R
 import com.aeon.exchangeratesapp.databinding.FragmentCurrencySelectorDialogBinding
 import com.aeon.exchangeratesapp.di.ViewModelFactory
-import com.aeon.exchangeratesapp.ui.adapter.CurrencyAdapter
-import com.aeon.exchangeratesapp.ui.state.CurrencyUiState
-import com.aeon.exchangeratesapp.ui.viewmodel.CurrencyViewModel
 import com.aeon.exchangeratesapp.utils.DelegateUtils
 import com.redmadrobot.extensions.viewbinding.viewBinding
 import kotlinx.coroutines.launch
@@ -76,19 +73,31 @@ class CurrencySelectorDialogFragment : Fragment(R.layout.fragment_currency_selec
     }
 
     private fun render(uiState: CurrencyUiState) {
-        when (uiState) {
-            CurrencyUiState.Loading -> Toast.makeText(
-                requireContext(),
-                "Loading...",
-                Toast.LENGTH_LONG
-            ).show()
+        with(binding) {
+            when (uiState) {
+                CurrencyUiState.Loading -> {
+                    rvCurrencyList.isVisible = false
+                    tvErrorText.isVisible = false
 
-            is CurrencyUiState.Success -> adapter.setData(uiState.data)
-            is CurrencyUiState.Error -> Toast.makeText(
-                requireContext(),
-                "Error!",
-                Toast.LENGTH_LONG
-            ).show()
+                    pbLoading.isVisible = true
+                }
+
+                is CurrencyUiState.Success -> {
+                    adapter.setData(uiState.data)
+
+                    tvErrorText.isVisible = false
+                    pbLoading.isVisible = false
+
+                    rvCurrencyList.isVisible = true
+                }
+
+                is CurrencyUiState.Error -> {
+                    pbLoading.isVisible = false
+                    rvCurrencyList.isVisible = false
+
+                    tvErrorText.isVisible = true
+                }
+            }
         }
     }
 }

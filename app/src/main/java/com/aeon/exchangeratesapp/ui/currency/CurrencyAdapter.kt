@@ -1,10 +1,9 @@
-package com.aeon.exchangeratesapp.ui.adapter
+package com.aeon.exchangeratesapp.ui.currency
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.aeon.exchangeratesapp.R
-import com.aeon.exchangeratesapp.ui.viewholder.CurrencyViewHolder
 
 class CurrencyAdapter(
     private val data: MutableList<String>,

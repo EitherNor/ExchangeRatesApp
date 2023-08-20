@@ -2,7 +2,7 @@ package com.aeon.exchangeratesapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.aeon.exchangeratesapp.ui.fragment.ContainerFragment
+import com.aeon.exchangeratesapp.ui.container.ContainerFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

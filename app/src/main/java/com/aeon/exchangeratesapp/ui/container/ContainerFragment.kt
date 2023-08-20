@@ -1,4 +1,4 @@
-package com.aeon.exchangeratesapp.ui.fragment
+package com.aeon.exchangeratesapp.ui.container
 
 import android.os.Bundle
 import android.view.View
@@ -12,7 +12,8 @@ import com.aeon.exchangeratesapp.R
 import com.aeon.exchangeratesapp.databinding.FragmentContentContainerBinding
 import com.aeon.exchangeratesapp.di.ViewModelFactory
 import com.aeon.exchangeratesapp.ui.ExchangeRatesTabAdapter
-import com.aeon.exchangeratesapp.ui.viewmodel.ContainerViewModel
+import com.aeon.exchangeratesapp.ui.currency.CurrencySelectorDialogFragment
+import com.aeon.exchangeratesapp.ui.ratelist.RatesListFragment
 import com.aeon.exchangeratesapp.utils.DelegateUtils
 import com.google.android.material.tabs.TabLayoutMediator
 import com.redmadrobot.extensions.viewbinding.viewBinding

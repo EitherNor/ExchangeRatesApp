@@ -1,4 +1,4 @@
-package com.aeon.exchangeratesapp.ui.viewholder
+package com.aeon.exchangeratesapp.ui.ratelist
 
 import android.view.View
 import android.widget.ImageView

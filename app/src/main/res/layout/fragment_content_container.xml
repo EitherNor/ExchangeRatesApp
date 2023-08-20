@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray_tuna">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCurrencySelectorContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,10 +22,15 @@
             android:id="@+id/tvBaseCurrencyTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
             android:layout_marginStart="16dp"
             android:text="@string/tvCurrencySelectorTitle"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvBaseCurrencyCode"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Базовая валюта " />
 
         <TextView
@@ -37,11 +42,15 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/shape_retry_button_background"
             android:paddingHorizontal="12dp"
+            android:text="EUR"
             android:textColor="@color/gray_tuna"
             android:textSize="32sp"
-            tools:text="EUR"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvBaseCurrencyTitle"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/ivSort"

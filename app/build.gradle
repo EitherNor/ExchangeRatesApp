@@ -9,6 +9,7 @@ android {
 
     buildFeatures.viewBinding = true
 
+
     defaultConfig {
         applicationId "com.aeon.exchangeratesapp"
         minSdk 24
@@ -23,6 +24,11 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "API_ACCESS_KEY", "\"836e06ad53bf69d80c6e3ea9d0223fbd\""
+        }
+        debug {
+            minifyEnabled false
+            buildConfigField "String", "API_ACCESS_KEY", "\"836e06ad53bf69d80c6e3ea9d0223fbd\""
         }
     }
     compileOptions {
@@ -55,6 +61,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0-alpha01'
 
     implementation("com.redmadrobot.extensions:viewbinding-ktx:4.2.1-0")
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     testImplementation 'junit:junit:4.13.2'
 }

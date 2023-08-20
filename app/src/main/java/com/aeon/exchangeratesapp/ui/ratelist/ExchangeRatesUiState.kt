@@ -1,4 +1,4 @@
-package com.aeon.exchangeratesapp.ui.state
+package com.aeon.exchangeratesapp.ui.ratelist
 
 import com.aeon.exchangeratesapp.domain.ExchangeRateDto
 
