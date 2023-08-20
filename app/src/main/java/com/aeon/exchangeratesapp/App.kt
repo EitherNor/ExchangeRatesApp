@@ -2,6 +2,7 @@ package com.aeon.exchangeratesapp
 
 import android.app.Application
 import com.aeon.exchangeratesapp.di.AppComponent
+import com.aeon.exchangeratesapp.di.ContextModule
 import com.aeon.exchangeratesapp.di.DaggerAppComponent
 
 class App : Application() {
@@ -16,6 +17,8 @@ class App : Application() {
     }
 
     private fun buildAppComponent(): AppComponent {
-        return DaggerAppComponent.builder().build()
+        return DaggerAppComponent.builder()
+            .contextModule(ContextModule(this))
+            .build()
     }
 }

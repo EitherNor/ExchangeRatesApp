@@ -9,13 +9,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.aeon.exchangeratesapp.App
 import com.aeon.exchangeratesapp.R
 import com.aeon.exchangeratesapp.databinding.FragmentExchangeRatesListBinding
 import com.aeon.exchangeratesapp.di.ViewModelFactory
 import com.aeon.exchangeratesapp.ui.adapter.ExchangeRateAdapter
-import com.aeon.exchangeratesapp.ui.state.UiState
+import com.aeon.exchangeratesapp.ui.state.ExchangeRatesUiState
 import com.aeon.exchangeratesapp.ui.viewmodel.ExchangeRatesListViewModel
 import com.aeon.exchangeratesapp.utils.DelegateUtils.lazyUnsafe
 import com.redmadrobot.extensions.viewbinding.viewBinding
@@ -65,10 +64,10 @@ class RatesListFragment : Fragment(R.layout.fragment_exchange_rates_list) {
         }
     }
 
-    private fun render(uiState: UiState) {
+    private fun render(uiState: ExchangeRatesUiState) {
         with(binding) {
             when (uiState) {
-                UiState.Loading -> {
+                ExchangeRatesUiState.Loading -> {
                     Log.d(TAG, "render: loading")
                     rvExchangeRatesList.isVisible = false
                     tvErrorText.isVisible = false
@@ -77,7 +76,7 @@ class RatesListFragment : Fragment(R.layout.fragment_exchange_rates_list) {
                     pbLoading.isVisible = true
                 }
 
-                is UiState.Success -> {
+                is ExchangeRatesUiState.Success -> {
                     Log.d(TAG, "render: success, data size: ${uiState.data.size}")
                     pbLoading.isVisible = false
                     tvErrorText.isVisible = false
@@ -87,7 +86,7 @@ class RatesListFragment : Fragment(R.layout.fragment_exchange_rates_list) {
                     adapter.setData(uiState.data)
                 }
 
-                is UiState.Error -> {
+                is ExchangeRatesUiState.Error -> {
                     Log.d(TAG, "render: error ${uiState.throwable}")
                     pbLoading.isVisible = false
                     rvExchangeRatesList.isVisible = false

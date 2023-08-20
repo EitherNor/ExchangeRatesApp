@@ -6,12 +6,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.aeon.exchangeratesapp.R
 import com.aeon.exchangeratesapp.domain.ExchangeRateDto
+import com.aeon.exchangeratesapp.utils.DelegateUtils.lazyUnsafe
 
 class ExchangeRateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    private val tvCurrencyCode: TextView by lazy { itemView.findViewById(R.id.tvCurrencyCode) }
-    private val tvExchangeRateValue: TextView by lazy { itemView.findViewById(R.id.tvExchangeRateValue) }
-    private val ivFavourite: ImageView by lazy { itemView.findViewById(R.id.ivFavourite) }
+    private val tvCurrencyCode: TextView by lazyUnsafe { itemView.findViewById(R.id.tvCurrencyCode) }
+    private val tvExchangeRateValue: TextView by lazyUnsafe { itemView.findViewById(R.id.tvExchangeRateValue) }
+    private val ivFavourite: ImageView by lazyUnsafe { itemView.findViewById(R.id.ivFavourite) }
 
     fun bind(exchangeRateDto: ExchangeRateDto) {
         exchangeRateDto.apply {

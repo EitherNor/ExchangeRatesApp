@@ -4,4 +4,6 @@
     <string name="favouriteRatesListTitle">Favourite</string>
     <string name="tvLoadingErrorText">Failed to load data</string>
     <string name="tvLoadingErrorRetry">Retry</string>
+    <string name="tvCurrencySelectorTitle">Base currency</string>
+    <string name="tvCurrencySelectorDialogTitle">Select base currency</string>
 </resources>

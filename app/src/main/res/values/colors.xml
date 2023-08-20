@@ -2,5 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
     <color name="orange_sun">#FCB414</color>
+    <color name="blue_cornflower">#FF0f839b</color>
+    <color name="gray_tuna">#39393A</color>
+    <color name="gray_light">#FF757575</color>
+    <color name="orange_flame">#EC4E20</color>
+    <color name="white_ghost">#F7F7FF</color>
+    <color name="gray_gull">#FF7D7D7D</color>
 </resources>

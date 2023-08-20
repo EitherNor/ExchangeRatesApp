@@ -1,23 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/gray_tuna">
+
+    <LinearLayout
+        android:id="@+id/clCurrencySelectorContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_currency_selector_background"
+        app:layout_constraintEnd_toStartOf="@id/ivSort"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvBaseCurrencyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/tvCurrencySelectorTitle"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:text="Базовая валюта " />
+
+        <TextView
+            android:id="@+id/tvBaseCurrencyCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/shape_retry_button_background"
+            android:paddingHorizontal="12dp"
+            android:textColor="@color/gray_tuna"
+            android:textSize="32sp"
+            tools:text="EUR"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivSort"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_sort_background"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/clCurrencySelectorContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@id/clCurrencySelectorContainer"
+        app:layout_constraintTop_toTopOf="@id/clCurrencySelectorContainer"
+        app:srcCompat="@drawable/ic_sort" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vpRatesContent"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@id/vDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/clCurrencySelectorContainer" />
 
     <View
         android:id="@+id/vDivider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/black"
+        android:background="@color/gray_tuna"
         app:layout_constraintBottom_toTopOf="@id/tlBottomTabs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -25,13 +79,14 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tlBottomTabs"
         android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:background="@color/white"
+        android:layout_height="60dp"
+        android:background="@color/gray_tuna"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:tabIndicatorHeight="0dp"
         app:tabSelectedTextColor="@color/orange_sun"
-        app:tabTextColor="@color/black" />
+        app:tabTextAppearance="@style/TabText"
+        app:tabTextColor="@color/white_ghost" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
