@@ -5,7 +5,8 @@ data class ExchangeRateDtoResult(
 )
 
 data class ExchangeRateDto(
+    val baseCurrency: String,
     val currencyCode: String,
-    val exchangeRateValue: String,
-    var isFavourite: Boolean = false,
+    var exchangeRateValue: Double,
+    var isFavourite: Boolean,
 )

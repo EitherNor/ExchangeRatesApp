@@ -1,7 +1,11 @@
 package com.aeon.exchangeratesapp.di
 
+import com.aeon.exchangeratesapp.domain.currency.CurrencyInteractorImpl
+import com.aeon.exchangeratesapp.domain.currency.CurrencyInteractor
+import com.aeon.exchangeratesapp.domain.favourites.FavouritesInteractorImpl
+import com.aeon.exchangeratesapp.domain.favourites.FavouritesInteractor
+import com.aeon.exchangeratesapp.domain.ratelist.ExchangeRateListInteractorImpl
 import com.aeon.exchangeratesapp.domain.ratelist.ExchangeRateListInteractor
-import com.aeon.exchangeratesapp.domain.ratelist.IExchangeRateListInteractor
 import dagger.Binds
 import dagger.Module
 
@@ -9,5 +13,11 @@ import dagger.Module
 interface DomainModule {
 
     @Binds
-    fun ExchangeRateListInteractor.bind(): IExchangeRateListInteractor
+    fun ExchangeRateListInteractorImpl.bindExchangeRateListInteractor(): ExchangeRateListInteractor
+
+    @Binds
+    fun FavouritesInteractorImpl.bindFavouritesInteractor(): FavouritesInteractor
+
+    @Binds
+    fun CurrencyInteractorImpl.bindCurrencyInteractor(): CurrencyInteractor
 }

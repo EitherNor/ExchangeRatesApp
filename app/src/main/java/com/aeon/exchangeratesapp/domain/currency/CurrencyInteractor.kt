@@ -1,10 +1,9 @@
-package com.aeon.exchangeratesapp.domain
+package com.aeon.exchangeratesapp.domain.currency
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
-
-interface ICurrencyRepository {
+interface CurrencyInteractor {
 
     suspend fun updateCurrencyCodes(currencyCodeSet: Set<String>)
 

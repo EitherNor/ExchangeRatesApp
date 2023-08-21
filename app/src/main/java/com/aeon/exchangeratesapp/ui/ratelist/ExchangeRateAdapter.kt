@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aeon.exchangeratesapp.R
 import com.aeon.exchangeratesapp.domain.ExchangeRateDto
 
-class ExchangeRateAdapter(private val data: MutableList<ExchangeRateDto>) :
+class ExchangeRateAdapter(
+    private val data: MutableList<ExchangeRateDto>,
+    private val onFavouriteClicked: (dto: ExchangeRateDto) -> Unit,
+) :
     RecyclerView.Adapter<ExchangeRateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExchangeRateViewHolder {
@@ -16,7 +19,7 @@ class ExchangeRateAdapter(private val data: MutableList<ExchangeRateDto>) :
     }
 
     override fun onBindViewHolder(holder: ExchangeRateViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], onFavouriteClicked)
     }
 
     override fun getItemCount() = data.size
@@ -27,5 +30,20 @@ class ExchangeRateAdapter(private val data: MutableList<ExchangeRateDto>) :
             addAll(newData)
         }
         notifyDataSetChanged()
+    }
+
+    fun updateFavourites(favourites: List<ExchangeRateDto>) {
+        favourites.forEach { fav ->
+            val itemToUpdate = data.firstOrNull {
+                fav.baseCurrency == it.baseCurrency
+                        && fav.currencyCode == it.currencyCode
+                        && fav.isFavourite != it.isFavourite
+            }
+
+            itemToUpdate?.let {
+                it.isFavourite = fav.isFavourite
+                notifyItemChanged(data.indexOf(itemToUpdate))
+            }
+        }
     }
 }

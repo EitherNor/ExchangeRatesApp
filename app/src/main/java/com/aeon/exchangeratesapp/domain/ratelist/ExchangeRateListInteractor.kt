@@ -1,14 +1,10 @@
 package com.aeon.exchangeratesapp.domain.ratelist
 
-import com.aeon.exchangeratesapp.BuildConfig
-import com.aeon.exchangeratesapp.domain.IExchangeRateRepository
-import javax.inject.Inject
-import javax.inject.Singleton
+import com.aeon.exchangeratesapp.domain.DataResult
+import com.aeon.exchangeratesapp.domain.ExchangeRateDtoResult
+import kotlinx.coroutines.flow.Flow
 
-@Singleton
-class ExchangeRateListInteractor @Inject constructor(private val exchangeRateRepository: IExchangeRateRepository) :
-    IExchangeRateListInteractor {
+interface ExchangeRateListInteractor {
 
-    override fun getExchangeRateList(baseCurrency: String) =
-        exchangeRateRepository.getExchangeRateData(baseCurrency)
+    fun getExchangeRateList(baseCurrency: String): Flow<DataResult<ExchangeRateDtoResult>>
 }

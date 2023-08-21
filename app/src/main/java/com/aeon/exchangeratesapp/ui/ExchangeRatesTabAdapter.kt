@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aeon.exchangeratesapp.R
+import com.aeon.exchangeratesapp.ui.favourites.FavouritesFragment
 import com.aeon.exchangeratesapp.ui.ratelist.RatesListFragment
 
 class ExchangeRatesTabAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
@@ -23,8 +24,8 @@ class ExchangeRatesTabAdapter(fragmentManager: FragmentManager, lifecycle: Lifec
 
     override fun createFragment(position: Int) =
         when (position) {
-            ExchangeRatesTab.LATEST.ordinal -> RatesListFragment() // todo specify instance
-            ExchangeRatesTab.FAVOURITE.ordinal -> RatesListFragment()
+            ExchangeRatesTab.LATEST.ordinal -> RatesListFragment()
+            ExchangeRatesTab.FAVOURITE.ordinal -> FavouritesFragment()
             else -> RatesListFragment()
         }
 

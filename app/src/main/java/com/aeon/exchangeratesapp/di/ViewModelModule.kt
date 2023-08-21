@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aeon.exchangeratesapp.ui.container.ContainerViewModel
 import com.aeon.exchangeratesapp.ui.currency.CurrencyViewModel
+import com.aeon.exchangeratesapp.ui.favourites.FavouritesViewModel
 import com.aeon.exchangeratesapp.ui.ratelist.ExchangeRatesListViewModel
 import dagger.Binds
 import dagger.Module
@@ -29,4 +30,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ContainerViewModel::class)
     abstract fun bindContainerViewModel(viewModel: ContainerViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FavouritesViewModel::class)
+    abstract fun bindFavouritesViewModel(viewModel: FavouritesViewModel): ViewModel
 }

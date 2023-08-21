@@ -19,13 +19,21 @@ object NetworkResultMapper {
     fun Flow<ExchangeRatesData>.tryAsDataResult(): Flow<DataResult<ExchangeRateDtoResult>> {
         return this
             .map { data ->
-                data.error?.let { error ->
-                    return@map DataResult.Error(IllegalStateException(error.type))
-                } ?: kotlin.run {
-                    return@map DataResult.Success(ExchangeRateDtoResult(
-                        data.rates?.map { ExchangeRateDto(it.key, it.value.toString()) }
-                            ?: emptyList()
-                    ))
+                return@map if (data.error != null || data.rates == null || data.base == null) {
+                    data.error?.let { DataResult.Error(IllegalStateException(it.type)) }
+                        ?: DataResult.Error(IllegalStateException("No data received"))
+                } else {
+                    DataResult.Success(
+                        ExchangeRateDtoResult(
+                            data.rates.map {
+                                ExchangeRateDto(
+                                    baseCurrency = data.base,
+                                    currencyCode = it.key,
+                                    exchangeRateValue = it.value,
+                                    isFavourite = false
+                                )
+                            })
+                    )
                 }
             }
             .onStart { emit(DataResult.Loading) }

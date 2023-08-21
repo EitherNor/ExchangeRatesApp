@@ -2,7 +2,7 @@ package com.aeon.exchangeratesapp.data
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.aeon.exchangeratesapp.domain.ICurrencyRepository
+import com.aeon.exchangeratesapp.domain.currency.CurrencyRepository
 import com.aeon.exchangeratesapp.extensions.StateFlowExtensions.map
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
-class CurrencyRepository @Inject constructor(appContext: Context) : ICurrencyRepository {
+class CurrencyRepositoryImpl @Inject constructor(appContext: Context) : CurrencyRepository {
 
     companion object {
         private const val CURRENCY_PREFERENCES_FILE_NAME = "currencyPreferences"

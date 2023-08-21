@@ -4,7 +4,8 @@ import com.aeon.exchangeratesapp.domain.DataResult
 import com.aeon.exchangeratesapp.domain.ExchangeRateDtoResult
 import kotlinx.coroutines.flow.Flow
 
-interface IExchangeRateListInteractor {
+interface ExchangeRateRepository {
 
-    fun getExchangeRateList(baseCurrency: String): Flow<DataResult<ExchangeRateDtoResult>>
+    fun getExchangeRateData(baseCurrency: String): Flow<DataResult<ExchangeRateDtoResult>>
+
 }

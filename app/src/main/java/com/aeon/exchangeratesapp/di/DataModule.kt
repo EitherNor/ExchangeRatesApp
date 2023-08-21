@@ -1,10 +1,14 @@
 package com.aeon.exchangeratesapp.di
 
-import com.aeon.exchangeratesapp.data.CurrencyRepository
-import com.aeon.exchangeratesapp.data.ExchangeRateRepository
+import android.content.Context
+import com.aeon.exchangeratesapp.data.CurrencyRepositoryImpl
+import com.aeon.exchangeratesapp.data.ExchangeRateRepositoryImpl
+import com.aeon.exchangeratesapp.data.FavouritesRepositoryImpl
 import com.aeon.exchangeratesapp.data.api.ExchangeRatesApi
-import com.aeon.exchangeratesapp.domain.ICurrencyRepository
-import com.aeon.exchangeratesapp.domain.IExchangeRateRepository
+import com.aeon.exchangeratesapp.data.db.ExchangeRateDatabase
+import com.aeon.exchangeratesapp.domain.currency.CurrencyRepository
+import com.aeon.exchangeratesapp.domain.favourites.FavouritesRepository
+import com.aeon.exchangeratesapp.domain.ratelist.ExchangeRateRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -26,13 +30,19 @@ interface DataModule {
                 .build()
             return retrofit.create(ExchangeRatesApi::class.java)
         }
+
+        @Provides
+        @Singleton
+        fun provideFavouritesRepository(appContext: Context): FavouritesRepository {
+            return FavouritesRepositoryImpl(ExchangeRateDatabase.getInstance(appContext).exchangeRateDao())
+        }
     }
 
     @Singleton
     @Binds
-    fun ExchangeRateRepository.bindExchangeRateRepository(): IExchangeRateRepository
+    fun ExchangeRateRepositoryImpl.bindExchangeRateRepository(): ExchangeRateRepository
 
     @Singleton
     @Binds
-    fun CurrencyRepository.bindCurrencyRepository(): ICurrencyRepository
+    fun CurrencyRepositoryImpl.bindCurrencyRepository(): CurrencyRepository
 }

@@ -12,19 +12,21 @@
 
         <TextView
             android:id="@+id/tvCurrencyCode"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:background="@drawable/shape_retry_button_background"
             android:paddingHorizontal="12dp"
-            android:text="RUB"
+            android:gravity="center"
+            android:text="WWW"
             android:textColor="@color/gray_tuna"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="RUB" />
+            app:layout_constraintWidth_min="71dp"
+            tools:text="III" />
 
         <TextView
             android:id="@+id/tvExchangeRateValue"
@@ -37,6 +39,15 @@
             app:layout_constraintStart_toEndOf="@id/tvCurrencyCode"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="100.00" />
+
+        <View
+            android:id="@+id/tapzoneFavourite"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="@id/ivFavourite"
+            app:layout_constraintEnd_toEndOf="@id/ivFavourite"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageView
             android:id="@+id/ivFavourite"

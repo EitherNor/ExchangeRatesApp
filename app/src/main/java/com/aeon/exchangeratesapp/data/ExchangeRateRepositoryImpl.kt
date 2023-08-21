@@ -5,13 +5,13 @@ import com.aeon.exchangeratesapp.data.NetworkResultMapper.tryAsDataResult
 import com.aeon.exchangeratesapp.data.api.ExchangeRatesApi
 import com.aeon.exchangeratesapp.domain.DataResult
 import com.aeon.exchangeratesapp.domain.ExchangeRateDtoResult
-import com.aeon.exchangeratesapp.domain.IExchangeRateRepository
+import com.aeon.exchangeratesapp.domain.ratelist.ExchangeRateRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class ExchangeRateRepository @Inject constructor(private val exchangeRatesApi: ExchangeRatesApi) :
-    IExchangeRateRepository {
+class ExchangeRateRepositoryImpl @Inject constructor(private val exchangeRatesApi: ExchangeRatesApi) :
+    ExchangeRateRepository {
 
     override fun getExchangeRateData(
         baseCurrency: String,

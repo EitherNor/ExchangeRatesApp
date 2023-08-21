@@ -1,7 +1,6 @@
-package com.aeon.exchangeratesapp.ui.ratelist
+package com.aeon.exchangeratesapp.ui.favourites
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
@@ -12,25 +11,20 @@ import com.aeon.exchangeratesapp.App
 import com.aeon.exchangeratesapp.di.ViewModelFactory
 import com.aeon.exchangeratesapp.ui.base.BaseRateListFragment
 import com.aeon.exchangeratesapp.ui.base.ExchangeRatesUiState
-import com.aeon.exchangeratesapp.utils.DelegateUtils.lazyUnsafe
-import kotlinx.coroutines.flow.filter
+import com.aeon.exchangeratesapp.utils.DelegateUtils
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class RatesListFragment : BaseRateListFragment() {
-
-    companion object {
-        private val TAG = RatesListFragment::class.java.simpleName
-    }
+class FavouritesFragment : BaseRateListFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    override val viewModel: ExchangeRatesListViewModel by lazyUnsafe {
+    override val viewModel: FavouritesViewModel by DelegateUtils.lazyUnsafe {
         ViewModelProvider(
             this,
             viewModelFactory
-        )[ExchangeRatesListViewModel::class.java]
+        )[FavouritesViewModel::class.java]
     }
 
     init {
@@ -42,21 +36,12 @@ class RatesListFragment : BaseRateListFragment() {
 
         with(binding) {
             rvExchangeRatesList.adapter = adapter
-            tvErrorRetry.setOnClickListener { viewModel.onRetryClicked() }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.exchangeRateDataFlow.collect {
+                viewModel.favouritesFlow.collect {
                     render(it)
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.favouritesFlow.filter { it is ExchangeRatesUiState.Success }.collect {
-                    adapter.updateFavourites((it as ExchangeRatesUiState.Success).data.exchangeRateDtoList)
                 }
             }
         }
@@ -66,29 +51,23 @@ class RatesListFragment : BaseRateListFragment() {
         with(binding) {
             when (uiState) {
                 ExchangeRatesUiState.Loading -> {
-                    Log.d(TAG, "render: loading")
                     rvExchangeRatesList.isVisible = false
                     gErrorGroup.isVisible = false
 
                     pbLoading.isVisible = true
                 }
-
                 is ExchangeRatesUiState.Success -> {
-                    Log.d(TAG, "render: success, data size: ${uiState.data.exchangeRateDtoList.size}")
                     pbLoading.isVisible = false
                     gErrorGroup.isVisible = false
 
                     rvExchangeRatesList.isVisible = true
-                    adapter.setData(uiState.data.exchangeRateDtoList)
+                    adapter.setData(uiState.data.exchangeRateDtoList.filter { it.isFavourite })
                 }
-
                 is ExchangeRatesUiState.Error -> {
-                    Log.d(TAG, "render: error ${uiState.throwable}")
-                    pbLoading.isVisible = false
                     rvExchangeRatesList.isVisible = false
+                    pbLoading.isVisible = false
 
                     gErrorGroup.isVisible = true
-                    tvErrorDescription.text = uiState.throwable?.message
                 }
             }
         }
