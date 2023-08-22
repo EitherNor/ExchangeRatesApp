@@ -6,6 +6,7 @@ import com.aeon.exchangeratesapp.ui.container.ContainerViewModel
 import com.aeon.exchangeratesapp.ui.currency.CurrencyViewModel
 import com.aeon.exchangeratesapp.ui.favourites.FavouritesViewModel
 import com.aeon.exchangeratesapp.ui.ratelist.ExchangeRatesListViewModel
+import com.aeon.exchangeratesapp.ui.sort.SortViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -35,4 +36,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FavouritesViewModel::class)
     abstract fun bindFavouritesViewModel(viewModel: FavouritesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SortViewModel::class)
+    abstract fun bindSortViewModel(viewModel: SortViewModel): ViewModel
 }

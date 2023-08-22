@@ -7,12 +7,15 @@ import com.aeon.exchangeratesapp.domain.DataResult.Success
 import com.aeon.exchangeratesapp.domain.currency.CurrencyInteractor
 import com.aeon.exchangeratesapp.domain.favourites.FavouritesInteractor
 import com.aeon.exchangeratesapp.domain.ratelist.ExchangeRateListInteractor
+import com.aeon.exchangeratesapp.domain.sort.SortInteractor
 import com.aeon.exchangeratesapp.ui.base.BaseViewModel
 import com.aeon.exchangeratesapp.ui.base.ExchangeRatesUiState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -22,25 +25,45 @@ class ExchangeRatesListViewModel @Inject constructor(
     private val exchangeRateListInteractor: ExchangeRateListInteractor,
     favouritesInteractor: FavouritesInteractor,
     private val currencyInteractor: CurrencyInteractor,
-) : BaseViewModel(favouritesInteractor, currencyInteractor) {
+    private val sortInteractor: SortInteractor,
+) : BaseViewModel(favouritesInteractor, currencyInteractor, sortInteractor) {
 
     private val _exchangeRateDataFlow =
         MutableStateFlow<ExchangeRatesUiState>(ExchangeRatesUiState.Loading)
     val exchangeRateDataFlow: StateFlow<ExchangeRatesUiState> = _exchangeRateDataFlow
 
+    private var loadRatesJob: Job? = null
+
     init {
+        observeSortMode()
+    }
+
+    fun onRefreshData() {
         loadExchangeRates()
     }
 
-    fun onRetryClicked() {
-        loadExchangeRates()
+    private fun observeSortMode() {
+        viewModelScope.launch {
+            sortInteractor.observeSortMode(this)
+                .collect {
+                    loadExchangeRates()
+                }
+        }
     }
 
     private fun loadExchangeRates() {
-        viewModelScope.launch {
+        loadRatesJob?.cancel()
+        loadRatesJob = viewModelScope.launch {
             currencyInteractor.observeBaseCurrency(this)
                 .collect {
                     exchangeRateListInteractor.getExchangeRateList(it)
+                        .map {
+                            if (it is Success) {
+                                val sortMode = sortInteractor.getSortMode()
+                                it.data.exchangeRateDtoList = applySort(it.data.exchangeRateDtoList, sortMode)
+                            }
+                            it
+                        }
                         .flowOn(Dispatchers.IO)
                         .onEach { dataResult ->
                             if (dataResult is Success) {

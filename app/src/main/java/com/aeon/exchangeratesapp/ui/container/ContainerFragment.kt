@@ -11,9 +11,11 @@ import com.aeon.exchangeratesapp.App
 import com.aeon.exchangeratesapp.R
 import com.aeon.exchangeratesapp.databinding.FragmentContentContainerBinding
 import com.aeon.exchangeratesapp.di.ViewModelFactory
+import com.aeon.exchangeratesapp.extensions.FragmentExtensions.observeViewModel
 import com.aeon.exchangeratesapp.ui.ExchangeRatesTabAdapter
 import com.aeon.exchangeratesapp.ui.currency.CurrencySelectorDialogFragment
 import com.aeon.exchangeratesapp.ui.ratelist.RatesListFragment
+import com.aeon.exchangeratesapp.ui.sort.SortFragment
 import com.aeon.exchangeratesapp.utils.DelegateUtils
 import com.google.android.material.tabs.TabLayoutMediator
 import com.redmadrobot.extensions.viewbinding.viewBinding
@@ -57,11 +59,12 @@ class ContainerFragment : Fragment(R.layout.fragment_content_container) {
                     parentFragmentManager
                 )
             }
+            ivSort.setOnClickListener {
+                SortFragment.show(parentFragmentManager)
+            }
 
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.observeBaseCurrency().collect { tvBaseCurrencyCode.text = it }
-                }
+            observeViewModel {
+                viewModel.observeBaseCurrency().collect { tvBaseCurrencyCode.text = it }
             }
         }
     }

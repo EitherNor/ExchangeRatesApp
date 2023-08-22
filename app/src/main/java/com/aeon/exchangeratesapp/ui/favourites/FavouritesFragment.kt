@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.aeon.exchangeratesapp.App
 import com.aeon.exchangeratesapp.di.ViewModelFactory
+import com.aeon.exchangeratesapp.extensions.FragmentExtensions.observeViewModel
 import com.aeon.exchangeratesapp.ui.base.BaseRateListFragment
 import com.aeon.exchangeratesapp.ui.base.ExchangeRatesUiState
 import com.aeon.exchangeratesapp.utils.DelegateUtils
@@ -36,13 +37,12 @@ class FavouritesFragment : BaseRateListFragment() {
 
         with(binding) {
             rvExchangeRatesList.adapter = adapter
+            srlSwipeRefreshLayout.isEnabled = false
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.favouritesFlow.collect {
-                    render(it)
-                }
+        observeViewModel {
+            viewModel.favouritesFlow.collect {
+                render(it)
             }
         }
     }

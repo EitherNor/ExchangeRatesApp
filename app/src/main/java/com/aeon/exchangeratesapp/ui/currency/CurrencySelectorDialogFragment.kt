@@ -14,6 +14,7 @@ import com.aeon.exchangeratesapp.App
 import com.aeon.exchangeratesapp.R
 import com.aeon.exchangeratesapp.databinding.FragmentCurrencySelectorDialogBinding
 import com.aeon.exchangeratesapp.di.ViewModelFactory
+import com.aeon.exchangeratesapp.extensions.FragmentExtensions.observeViewModel
 import com.aeon.exchangeratesapp.utils.DelegateUtils
 import com.redmadrobot.extensions.viewbinding.viewBinding
 import kotlinx.coroutines.launch
@@ -65,10 +66,8 @@ class CurrencySelectorDialogFragment : Fragment(R.layout.fragment_currency_selec
         }
         binding.rvCurrencyList.adapter = adapter
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.currencyDataFlow.collect { render(it) }
-            }
+        observeViewModel {
+            viewModel.currencyDataFlow.collect { render(it) }
         }
     }
 

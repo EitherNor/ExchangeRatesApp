@@ -1,7 +1,7 @@
 package com.aeon.exchangeratesapp.domain
 
 data class ExchangeRateDtoResult(
-    val exchangeRateDtoList: List<ExchangeRateDto>
+    var exchangeRateDtoList: List<ExchangeRateDto>
 )
 
 data class ExchangeRateDto(

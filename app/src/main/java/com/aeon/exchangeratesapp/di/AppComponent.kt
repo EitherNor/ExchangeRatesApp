@@ -4,6 +4,7 @@ import com.aeon.exchangeratesapp.ui.container.ContainerFragment
 import com.aeon.exchangeratesapp.ui.currency.CurrencySelectorDialogFragment
 import com.aeon.exchangeratesapp.ui.favourites.FavouritesFragment
 import com.aeon.exchangeratesapp.ui.ratelist.RatesListFragment
+import com.aeon.exchangeratesapp.ui.sort.SortFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -27,4 +28,6 @@ interface AppComponent {
     fun inject(fragment: ContainerFragment)
 
     fun inject(fragment: FavouritesFragment)
+
+    fun inject(fragment: SortFragment)
 }

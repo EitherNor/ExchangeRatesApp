@@ -4,11 +4,13 @@ import android.content.Context
 import com.aeon.exchangeratesapp.data.CurrencyRepositoryImpl
 import com.aeon.exchangeratesapp.data.ExchangeRateRepositoryImpl
 import com.aeon.exchangeratesapp.data.FavouritesRepositoryImpl
+import com.aeon.exchangeratesapp.data.SortRepositoryImpl
 import com.aeon.exchangeratesapp.data.api.ExchangeRatesApi
 import com.aeon.exchangeratesapp.data.db.ExchangeRateDatabase
 import com.aeon.exchangeratesapp.domain.currency.CurrencyRepository
 import com.aeon.exchangeratesapp.domain.favourites.FavouritesRepository
 import com.aeon.exchangeratesapp.domain.ratelist.ExchangeRateRepository
+import com.aeon.exchangeratesapp.domain.sort.SortRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -45,4 +47,8 @@ interface DataModule {
     @Singleton
     @Binds
     fun CurrencyRepositoryImpl.bindCurrencyRepository(): CurrencyRepository
+
+    @Binds
+    @Singleton
+    fun SortRepositoryImpl.bindSortRepository(): SortRepository
 }
