@@ -73,3 +73,6 @@ class FavouritesFragment : BaseRateListFragment() {
         }
     }
 }
+
+
+

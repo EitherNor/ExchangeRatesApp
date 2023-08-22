@@ -25,6 +25,7 @@ class CurrencySelectorDialogFragment : Fragment(R.layout.fragment_currency_selec
 
     companion object {
         private val TAG = CurrencySelectorDialogFragment::class.java.simpleName
+        private const val CURRENCY_SELECTOR_COLUMN_COUNT = 3
 
         fun show(fragmentManager: FragmentManager) =
             fragmentManager.beginTransaction()
@@ -61,7 +62,9 @@ class CurrencySelectorDialogFragment : Fragment(R.layout.fragment_currency_selec
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             rvCurrencyList.adapter = adapter
-            rvCurrencyList.layoutManager = GridLayoutManager(requireContext(), 3)
+            rvCurrencyList.layoutManager = GridLayoutManager(requireContext(),
+                CURRENCY_SELECTOR_COLUMN_COUNT
+            )
             ivClose.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
         }
         binding.rvCurrencyList.adapter = adapter

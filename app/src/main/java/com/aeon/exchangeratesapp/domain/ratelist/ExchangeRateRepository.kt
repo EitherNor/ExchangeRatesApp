@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ExchangeRateRepository {
 
-    fun getExchangeRateData(baseCurrency: String): Flow<DataResult<ExchangeRateDtoResult>>
+    fun getExchangeRateData(baseCurrency: String, isScheduled: Boolean): Flow<DataResult<ExchangeRateDtoResult>>
 
 }

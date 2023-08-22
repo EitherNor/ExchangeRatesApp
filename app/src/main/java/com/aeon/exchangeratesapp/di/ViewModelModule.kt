@@ -12,33 +12,33 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class ViewModelModule {
+interface ViewModelModule {
 
     @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+    fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
     @Binds
     @IntoMap
     @ViewModelKey(ExchangeRatesListViewModel::class)
-    abstract fun bindExchangeRatesListViewModel(viewModel: ExchangeRatesListViewModel): ViewModel
+    fun bindExchangeRatesListViewModel(viewModel: ExchangeRatesListViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(CurrencyViewModel::class)
-    abstract fun bindCurrencyViewModel(viewModel: CurrencyViewModel): ViewModel
+    fun bindCurrencyViewModel(viewModel: CurrencyViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(ContainerViewModel::class)
-    abstract fun bindContainerViewModel(viewModel: ContainerViewModel): ViewModel
+    fun bindContainerViewModel(viewModel: ContainerViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(FavouritesViewModel::class)
-    abstract fun bindFavouritesViewModel(viewModel: FavouritesViewModel): ViewModel
+    fun bindFavouritesViewModel(viewModel: FavouritesViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(SortViewModel::class)
-    abstract fun bindSortViewModel(viewModel: SortViewModel): ViewModel
+    fun bindSortViewModel(viewModel: SortViewModel): ViewModel
 }

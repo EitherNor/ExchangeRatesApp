@@ -16,7 +16,7 @@ object NetworkResultMapper {
     private const val RETRY_TIME_IN_MILLIS = 1_000L
     private const val RETRY_ATTEMPT_COUNT = 3
 
-    fun Flow<ExchangeRatesData>.tryAsDataResult(): Flow<DataResult<ExchangeRateDtoResult>> {
+    fun Flow<ExchangeRatesData>.tryAsDataResult(isScheduled: Boolean): Flow<DataResult<ExchangeRateDtoResult>> {
         return this
             .map { data ->
                 return@map if (data.error != null || data.rates == null || data.base == null) {
@@ -36,7 +36,11 @@ object NetworkResultMapper {
                     )
                 }
             }
-            .onStart { emit(DataResult.Loading) }
+            .onStart {
+                if (!isScheduled) {
+                    emit(DataResult.Loading)
+                }
+            }
             .retryWhen { cause, attempt ->
                 if (cause is IOException && attempt < RETRY_ATTEMPT_COUNT) {
                     delay(RETRY_TIME_IN_MILLIS)

@@ -1,9 +1,11 @@
 package com.aeon.exchangeratesapp.ui.ratelist
 
 import androidx.lifecycle.viewModelScope
+import com.aeon.exchangeratesapp.domain.DataResult
 import com.aeon.exchangeratesapp.domain.DataResult.Error
 import com.aeon.exchangeratesapp.domain.DataResult.Loading
 import com.aeon.exchangeratesapp.domain.DataResult.Success
+import com.aeon.exchangeratesapp.domain.ExchangeRateDtoResult
 import com.aeon.exchangeratesapp.domain.currency.CurrencyInteractor
 import com.aeon.exchangeratesapp.domain.favourites.FavouritesInteractor
 import com.aeon.exchangeratesapp.domain.ratelist.ExchangeRateListInteractor
@@ -36,6 +38,7 @@ class ExchangeRatesListViewModel @Inject constructor(
 
     init {
         observeSortMode()
+        observeBaseCurrency()
     }
 
     fun onRefreshData() {
@@ -51,41 +54,55 @@ class ExchangeRatesListViewModel @Inject constructor(
         }
     }
 
-    private fun loadExchangeRates() {
-        loadRatesJob?.cancel()
-        loadRatesJob = viewModelScope.launch {
+    private fun observeBaseCurrency() {
+        viewModelScope.launch {
             currencyInteractor.observeBaseCurrency(this)
                 .collect {
-                    exchangeRateListInteractor.getExchangeRateList(it)
-                        .map {
-                            if (it is Success) {
-                                val sortMode = sortInteractor.getSortMode()
-                                it.data.exchangeRateDtoList = applySort(it.data.exchangeRateDtoList, sortMode)
-                            }
-                            it
-                        }
-                        .flowOn(Dispatchers.IO)
-                        .onEach { dataResult ->
-                            if (dataResult is Success) {
-                                dataResult.data.let {
-                                    currencyInteractor.updateCurrencyCodes(dataResult.data.exchangeRateDtoList.map { it.currencyCode }
-                                        .toSet())
-                                }
-                                // update trading pair rate values in case if prices have changed
-                                favouritesInteractor.updateAllFavouritesValues(dataResult.data.exchangeRateDtoList)
-                                observeFavourites()
-                            }
-                        }
-                        .collect { result ->
-                            _exchangeRateDataFlow.update {
-                                when (result) {
-                                    is Loading -> ExchangeRatesUiState.Loading
-                                    is Success -> ExchangeRatesUiState.Success(result.data)
-                                    is Error -> ExchangeRatesUiState.Error(result.exception)
-                                }
-                            }
-                        }
+                    loadExchangeRates()
                 }
         }
     }
+
+    private fun loadExchangeRates() {
+        loadRatesJob?.cancel()
+        loadRatesJob = viewModelScope.launch {
+            val baseCurrency = currencyInteractor.getBaseCurrency()
+            exchangeRateListInteractor.getExchangeRateList(baseCurrency)
+                .map { applySort(it) }
+                .onEach { updateSavedValues(it) }
+                .flowOn(Dispatchers.IO)
+                .collect { updateExchangeRateFlow(it) }
+        }
+    }
+
+    private suspend fun applySort(dataResult: DataResult<ExchangeRateDtoResult>): DataResult<ExchangeRateDtoResult> {
+        if (dataResult is Success) {
+            val sortMode = sortInteractor.getSortMode()
+            dataResult.data.exchangeRateDtoList = applySort(dataResult.data.exchangeRateDtoList, sortMode)
+        }
+        return dataResult
+    }
+
+    private suspend fun updateSavedValues(dataResult: DataResult<ExchangeRateDtoResult>) {
+        if (dataResult is Success) {
+            dataResult.data.let {
+                currencyInteractor.updateCurrencyCodes(dataResult.data.exchangeRateDtoList.map { it.currencyCode }
+                    .toSet())
+            }
+            // update trading pair rate values in case if prices have changed
+            favouritesInteractor.updateAllFavouritesValues(dataResult.data.exchangeRateDtoList)
+            observeFavourites()
+        }
+    }
+
+    private fun updateExchangeRateFlow(dataResult: DataResult<ExchangeRateDtoResult>) {
+        _exchangeRateDataFlow.update {
+            when (dataResult) {
+                is Loading -> ExchangeRatesUiState.Loading
+                is Success -> ExchangeRatesUiState.Success(dataResult.data)
+                is Error -> ExchangeRatesUiState.Error(dataResult.exception)
+            }
+        }
+    }
 }
+

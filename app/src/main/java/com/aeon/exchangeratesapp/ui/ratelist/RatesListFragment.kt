@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.aeon.exchangeratesapp.App
 import com.aeon.exchangeratesapp.di.ViewModelFactory
 import com.aeon.exchangeratesapp.extensions.FragmentExtensions.observeViewModel
-import com.aeon.exchangeratesapp.extensions.FragmentExtensions.vibrateOnRefresh
+import com.aeon.exchangeratesapp.extensions.FragmentExtensions.vibrate
 import com.aeon.exchangeratesapp.ui.base.BaseRateListFragment
 import com.aeon.exchangeratesapp.ui.base.ExchangeRatesUiState
 import com.aeon.exchangeratesapp.utils.DelegateUtils.lazyUnsafe
@@ -42,7 +42,7 @@ class RatesListFragment : BaseRateListFragment() {
             rvExchangeRatesList.adapter = adapter
             tvErrorRetry.setOnClickListener { viewModel.onRefreshData() }
             srlSwipeRefreshLayout.setOnRefreshListener {
-                vibrateOnRefresh()
+                vibrate()
                 viewModel.onRefreshData()
             }
         }

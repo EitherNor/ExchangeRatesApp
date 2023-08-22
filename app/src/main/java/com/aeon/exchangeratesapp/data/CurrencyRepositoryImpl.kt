@@ -52,9 +52,15 @@ class CurrencyRepositoryImpl @Inject constructor(appContext: Context) : Currency
     override fun observeBaseCurrency(coroutineScope: CoroutineScope): Flow<String> {
         return _baseCurrencyFlow.map(coroutineScope) {
             if (it == DEFAULT_BASE_CURRENCY)
-                preferences.getString(STRING_BASE_CURRENCY, DEFAULT_BASE_CURRENCY)
-                    ?: DEFAULT_BASE_CURRENCY
+                getSavedBaseCurrency()
             else it
         }
+    }
+
+    override suspend fun getBaseCurrency() = getSavedBaseCurrency()
+
+    private fun getSavedBaseCurrency(): String {
+        return preferences.getString(STRING_BASE_CURRENCY, DEFAULT_BASE_CURRENCY)
+            ?: DEFAULT_BASE_CURRENCY
     }
 }

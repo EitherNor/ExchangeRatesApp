@@ -22,9 +22,9 @@ object FragmentExtensions {
         }
     }
 
-    fun Fragment.vibrateOnRefresh() {
+    fun Fragment.vibrate() {
         val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (Build.VERSION.SDK_INT >= 26) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vibrator.vibrate(
                 VibrationEffect.createOneShot(
                     VIBRATE_TICK_DURATION,

@@ -13,4 +13,6 @@ interface CurrencyRepository {
     fun observeCurrencyCodes(coroutineScope: CoroutineScope): Flow<Set<String>>
 
     fun observeBaseCurrency(coroutineScope: CoroutineScope): Flow<String>
+
+    suspend fun getBaseCurrency(): String
 }

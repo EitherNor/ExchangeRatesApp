@@ -15,10 +15,11 @@ class ExchangeRateRepositoryImpl @Inject constructor(private val exchangeRatesAp
 
     override fun getExchangeRateData(
         baseCurrency: String,
+        isScheduled: Boolean
     ): Flow<DataResult<ExchangeRateDtoResult>> {
         return flow {
             emit(exchangeRatesApi.getExchangeRates(baseCurrency, BuildConfig.API_ACCESS_KEY))
         }
-            .tryAsDataResult()
+            .tryAsDataResult(isScheduled)
     }
 }
