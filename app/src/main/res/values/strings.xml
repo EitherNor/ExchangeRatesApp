@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name" translatable="false">ExchangeRatesApp</string>
+    <string name="exchangeRatesListTitle">Latest</string>
+    <string name="favouriteRatesListTitle">Favourite</string>
+    <string name="tvLoadingErrorText">Failed to load data</string>
+    <string name="tvLoadingErrorRetry">Retry</string>
+    <string name="tvCurrencySelectorTitle">Base currency</string>
+    <string name="tvNameSortTitle">By name</string>
+    <string name="tvValueSortTitle">By value</string>
+</resources>
