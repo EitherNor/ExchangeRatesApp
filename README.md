@@ -1,4 +1,4 @@
-# Exchage Rates App
+# Exchange Rates App
 An application to track & save the currency exchange rates
 
 ### About the app
