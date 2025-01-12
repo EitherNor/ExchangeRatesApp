@@ -42,13 +42,13 @@ interface DataModule {
 
     @Singleton
     @Binds
-    fun ExchangeRateRepositoryImpl.bindExchangeRateRepository(): ExchangeRateRepository
+    fun bindExchangeRateRepository(exchangeRateRepositoryImpl: ExchangeRateRepositoryImpl): ExchangeRateRepository
 
     @Singleton
     @Binds
-    fun CurrencyRepositoryImpl.bindCurrencyRepository(): CurrencyRepository
+    fun bindCurrencyRepository(currencyRepositoryImpl: CurrencyRepositoryImpl): CurrencyRepository
 
     @Binds
     @Singleton
-    fun SortRepositoryImpl.bindSortRepository(): SortRepository
+    fun bindSortRepository(sortRepositoryImpl: SortRepositoryImpl): SortRepository
 }
