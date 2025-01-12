@@ -6,6 +6,7 @@ import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import com.aeon.exchangeratesapp.R
 import com.aeon.exchangeratesapp.databinding.FragmentExchangeRatesListBinding
+import com.aeon.exchangeratesapp.extensions.FragmentExtensions.vibrate
 import com.aeon.exchangeratesapp.ui.ratelist.ExchangeRateAdapter
 import com.redmadrobot.extensions.viewbinding.viewBinding
 
@@ -20,6 +21,9 @@ abstract class BaseRateListFragment : Fragment(R.layout.fragment_exchange_rates_
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = ExchangeRateAdapter(mutableListOf()) { viewModel.onFavouriteClicked(it) }
+        adapter = ExchangeRateAdapter(mutableListOf()) {
+            vibrate()
+            viewModel.onFavouriteClicked(it)
+        }
     }
 }
